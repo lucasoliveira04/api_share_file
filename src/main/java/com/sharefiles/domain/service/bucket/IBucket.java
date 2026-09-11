@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface IBucket {
     ResponseBucket save(FileBodyDto file) throws IOException;
-    void getFile(String id);
+    FileBodyDto getFile(String id);
     void delete(String id);
 }

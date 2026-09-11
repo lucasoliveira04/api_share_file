@@ -25,7 +25,7 @@ public class FileEntity {
     private String fileName;
     private String typeFile;
     private String urlCallback;
-    private String urlBucket;
+    private String keyFile;
     private String codeUsedToCallback;
     private String lengthFile;
     private LocalDateTime createdAt;
