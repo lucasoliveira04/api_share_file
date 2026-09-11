@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileMapper {
 
-    public FileEntity toEntity(FileBodyDto fileBodyDto, String codeUsedToCallback, String urlBucket) {
+    public FileEntity toEntity(FileBodyDto fileBodyDto, String codeUsedToCallback, String keyFile) {
         return FileEntity.builder()
                 .fileName(fileBodyDto.fileName())
                 .lengthFile(fileBodyDto.length())
                 .typeFile(fileBodyDto.typeFile())
                 .codeUsedToCallback(codeUsedToCallback)
-                .urlBucket(urlBucket)
+                .keyFile(keyFile)
                 .createdAt(java.time.LocalDateTime.now())
                 .build();
 
