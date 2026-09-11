@@ -83,13 +83,13 @@ public class S3BucketService implements IBucket{
     }
 
     private void deleteFile(String keyFile) {
-        fileRepository.deleteById(UUID.fromString(keyFile));
-        DeleteObjectRequest deleteFile = DeleteObjectRequest
-                .builder()
+        fileRepository.deleteByKeyFile(keyFile);
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .bucket(BUCKET_NAME)
                 .key(keyFile)
                 .build();
-        s3Client.deleteObject(deleteFile);
+
+        s3Client.deleteObject(deleteObjectRequest);
     }
 
     private String buildKeyFile(String prefix) {
