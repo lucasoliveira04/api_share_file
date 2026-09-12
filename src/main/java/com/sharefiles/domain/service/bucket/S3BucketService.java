@@ -2,16 +2,19 @@ package com.sharefiles.domain.service.bucket;
 
 import com.sharefiles.db.entity.FileEntity;
 import com.sharefiles.db.repository.FileRepository;
+import com.sharefiles.domain.dto.bucket.FileResponseDto;
 import com.sharefiles.domain.dto.bucket.ResponseBucket;
 import com.sharefiles.domain.dto.file.FileBodyDto;
 import com.sharefiles.domain.mapper.FileMapper;
-import com.sharefiles.domain.service.CallbackService;
+import com.sharefiles.domain.util.CallbackUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
@@ -28,7 +31,7 @@ public class S3BucketService implements IBucket{
     private static final String BUCKET_NAME = "files";
     private static final String PREFIX_KEY = "file/";
     private final FileRepository fileRepository;
-    private final CallbackService callbackService;
+    private final CallbackUtil callbackService;
     private final FileMapper fileMapper;
     private final S3Client s3Client;
 
@@ -65,14 +68,24 @@ public class S3BucketService implements IBucket{
     }
 
     @Override
-    public FileBodyDto getFile(String keyFile) {
+    public FileResponseDto getFile(String keyFile) {
         FileEntity fileEntity = findByKeyFile(keyFile);
 
-        return FileBodyDto
+        var request = GetObjectRequest
+                .builder()
+                .bucket(BUCKET_NAME)
+                .key(keyFile)
+                .build();
+
+        byte[] content = s3Client
+                .getObjectAsBytes(request)
+                .asByteArray();
+
+        return FileResponseDto
                 .builder()
                 .fileName(fileEntity.getFileName())
-                .length(fileEntity.getLengthFile())
-                .typeFile(fileEntity.getTypeFile())
+                .contentType(fileEntity.getTypeFile())
+                .content(content)
                 .build();
     }
 

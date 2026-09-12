@@ -1,4 +1,4 @@
-package com.sharefiles.domain.service;
+package com.sharefiles.domain.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CallbackService {
+public class CallbackUtil {
 
     private static final int CODE_LENGTH = 9;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
