@@ -1,3 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/sharefilesdb
+    driver-class-name: org.postgresql.Driver
+    username: admin
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+    show-sql: off
 aws:
   s3:
     endpoint: http://localhost:4566
