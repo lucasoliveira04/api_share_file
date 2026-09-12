@@ -12,4 +12,6 @@ public interface FileRepository extends JpaRepository<FileEntity, UUID> {
     Optional<FileEntity> findByKeyFile(String keyFile);
 
     void deleteByKeyFile(String keyFile);
+
+    Optional<FileEntity> findByCodeUsedToCallback(String codeUsedToCallback);
 }
