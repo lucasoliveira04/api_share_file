@@ -52,7 +52,7 @@ public class S3BucketService implements IBucket{
 
             var response = ResponseBucket
                     .builder()
-                    .message("Image saved with successfully")
+                    .codeCallback(fileSaveEntity.getCodeUsedToCallback())
                     .timestamp(fileSaveEntity.getCreatedAt().toString())
                     .build();
 

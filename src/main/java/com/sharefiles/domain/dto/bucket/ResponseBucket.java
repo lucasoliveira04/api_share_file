@@ -4,7 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record ResponseBucket(
-        String message,
-        String timestamp
+        String keyImage,
+        String timestamp,
+        String codeCallback
 ) {
 }
